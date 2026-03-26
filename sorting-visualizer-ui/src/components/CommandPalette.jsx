@@ -7,7 +7,7 @@ export function CommandPalette({ algorithms, selected, onSelect, disabled }) {
   const paletteRef = useRef(null);
 
   const filtered = algorithms.filter(a =>
-    a.toLowerCase().includes(query.toLowerCase())
+    a.name.toLowerCase().includes(query.toLowerCase())
   );
 
   useEffect(() => {
@@ -28,9 +28,8 @@ export function CommandPalette({ algorithms, selected, onSelect, disabled }) {
 
   useEffect(() => {
     const handler = (e) => {
-      if (paletteRef.current && !paletteRef.current.contains(e.target)) {
+      if (paletteRef.current && !paletteRef.current.contains(e.target))
         setOpen(false);
-      }
     };
     if (open) document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
@@ -75,7 +74,7 @@ export function CommandPalette({ algorithms, selected, onSelect, disabled }) {
       >
         <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <span style={{ color: 'var(--accent2)', fontSize: '12px' }}>⌘</span>
-          {selected ?? 'Select algorithm...'}
+          {selected?.name ?? 'Select algorithm...'}
         </span>
         <span style={{
           fontSize: '11px',
@@ -172,10 +171,10 @@ export function CommandPalette({ algorithms, selected, onSelect, disabled }) {
                 </div>
               ) : (
                 filtered.map((algo, i) => {
-                  const isSelected = algo === selected;
+                  const isSelected = algo.name === selected?.name;
                   return (
                     <button
-                      key={algo}
+                      key={algo.name}
                       onClick={() => handleSelect(algo)}
                       style={{
                         width: '100%',
@@ -209,7 +208,7 @@ export function CommandPalette({ algorithms, selected, onSelect, disabled }) {
                           flexShrink: 0,
                           transition: 'background 0.15s',
                         }} />
-                        {algo}
+                        {algo.name}
                       </span>
                       {isSelected && (
                         <span style={{ fontSize: '12px', color: 'var(--accent2)' }}>✓</span>
@@ -219,6 +218,22 @@ export function CommandPalette({ algorithms, selected, onSelect, disabled }) {
                 })
               )}
             </div>
+
+            {/* Selected description */}
+            {selected && (
+              <div style={{
+                padding: '12px 20px',
+                borderTop: '1px solid var(--border)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '12px',
+                color: 'var(--text-muted)',
+                lineHeight: '1.6',
+                background: 'rgba(6,182,212,0.04)',
+              }}>
+                <span style={{ color: 'var(--accent2)', marginRight: '8px' }}>▸</span>
+                {selected.description}
+              </div>
+            )}
 
             {/* Footer */}
             <div style={{

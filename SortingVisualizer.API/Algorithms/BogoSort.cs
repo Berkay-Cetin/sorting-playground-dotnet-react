@@ -2,25 +2,26 @@ using SortingVisualizer.API.Services;
 
 namespace SortingVisualizer.API.Algorithms;
 
-[SortDescription("Checks if the list is sorted. If not, waits for the universe to rearrange atoms into the correct order.")]
-public class MiracleSort
+[SortDescription("Randomly shuffles the list until it happens to be sorted. Statistically guaranteed to finish. Eventually.")]
+public class BogoSort
 {
 
     public void Sort(ObservableList list)
     {
         while (!IsSorted(list))
         {
-            Thread.Sleep(1000);
-
-            CheckList(list);
+            Shuffle(list);
         }
     }
-    private void CheckList(ObservableList list)
+
+    public void Shuffle(ObservableList list)
     {
-        for (int i = 0; i < list.Count; i++)
+        var rnd = new Random();
+        int n = list.Count;
+        while (n > 1)
         {
-            int temp = list[i];
-            list[i] = temp;
+            int k = rnd.Next(n--);
+            list.Swap(n, k);
         }
     }
 

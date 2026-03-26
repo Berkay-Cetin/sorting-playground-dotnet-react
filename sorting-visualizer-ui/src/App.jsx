@@ -56,7 +56,7 @@ export default function App() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        algorithmName: selected,
+        algorithmName: selected?.name,
         connectionId,
         list: values,
         delayMs,
@@ -121,6 +121,7 @@ export default function App() {
         flexDirection: 'column',
         gap: '20px',
       }}>
+        {/* Algorithm seçici */}
         <div>
           <label style={{
             display: 'block',
@@ -140,12 +141,33 @@ export default function App() {
           />
         </div>
 
+        {/* Description alanı */}
+        {selected?.description && (
+          <div style={{
+            padding: '12px 16px',
+            background: 'var(--surface2)',
+            border: '1px solid var(--border)',
+            borderLeft: '3px solid var(--accent2)',
+            borderRadius: '8px',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '12px',
+            color: 'var(--text-muted)',
+            lineHeight: '1.7',
+            transition: 'opacity 0.2s',
+          }}>
+            <span style={{ color: 'var(--accent2)', marginRight: '8px' }}>▸</span>
+            {selected.description}
+          </div>
+        )}
+
+        {/* Hız seçici */}
         <SpeedControl
           value={delayMs}
           onChange={setDelayMs}
           disabled={status === 'running'}
         />
 
+        {/* Butonlar */}
         <div style={{ display: 'flex', gap: '12px' }}>
           <button
             onClick={handleGenerate}

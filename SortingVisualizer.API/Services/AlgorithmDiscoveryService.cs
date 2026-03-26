@@ -4,7 +4,7 @@ namespace SortingVisualizer.API.Services;
 
 public class AlgorithmDiscoveryService
 {
-    public List<string> GetAvailableAlgorithms()
+    public List<AlgorithmInfo> GetAvailableAlgorithms()
     {
         return Assembly.GetExecutingAssembly()
             .GetTypes()
@@ -12,8 +12,11 @@ public class AlgorithmDiscoveryService
                      && t.IsClass
                      && !t.IsAbstract
                      && t.GetMethod("Sort") != null)
-            .Select(t => t.Name)
-            .OrderBy(n => n)
+            .Select(t => new AlgorithmInfo(
+                t.Name,
+                t.GetCustomAttribute<SortDescriptionAttribute>()?.Description ?? "No description provided."
+            ))
+            .OrderBy(a => a.Name)
             .ToList();
     }
 
@@ -34,8 +37,8 @@ public class AlgorithmDiscoveryService
             throw new InvalidOperationException($"Sort method not found on '{algorithmName}'.");
 
         var result = method.Invoke(instance, new object[] { list });
-
-        if (result is Task task)
-            await task;
+        if (result is Task task) await task;
     }
 }
+
+public record AlgorithmInfo(string Name, string Description);

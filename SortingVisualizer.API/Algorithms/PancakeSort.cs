@@ -3,6 +3,7 @@ using SortingVisualizer.API.Services;
 
 namespace SortingVisualizer.API.Algorithms;
 
+[SortDescription("Only operation allowed: flip. Finds the largest element, flips it to the top, then flips it into place. Like sorting a stack of pancakes with a spatula.")]
 public class PancakeSort
 {
 

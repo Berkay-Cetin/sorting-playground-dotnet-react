@@ -2,6 +2,7 @@ using SortingVisualizer.API.Services;
 
 namespace SortingVisualizer.API.Algorithms;
 
+[SortDescription("Randomly removes half the list until what remains is sorted. Perfectly balanced, as all things should be.")]
 public class ThanosSort
 {
     private static Random random = new Random();

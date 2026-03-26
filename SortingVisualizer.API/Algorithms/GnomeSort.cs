@@ -2,6 +2,7 @@ using SortingVisualizer.API.Services;
 
 namespace SortingVisualizer.API.Algorithms;
 
+[SortDescription("Moves through the list like a garden gnome — steps forward if things look good, swaps and steps back if not.")]
 public class GnomeSort
 {
     public void Sort(ObservableList list)
