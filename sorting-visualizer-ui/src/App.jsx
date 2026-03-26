@@ -3,6 +3,7 @@ import { useSignalR } from './hooks/useSignalR';
 import { SortVisualizer } from './components/SortVisualizer';
 import { CommandPalette } from './components/CommandPalette';
 import { StatsPanel } from './components/StatsPanel';
+import { SpeedControl } from './components/SpeedControl';
 
 const API = 'http://localhost:5152/api/sorting';
 
@@ -13,6 +14,7 @@ export default function App() {
   const [highlighted, setHighlighted] = useState([]);
   const [steps, setSteps] = useState(0);
   const [status, setStatus] = useState('idle');
+  const [delayMs, setDelayMs] = useState(120);
 
   const handleStep = useCallback((data) => {
     setValues(data.values);
@@ -57,6 +59,7 @@ export default function App() {
         algorithmName: selected,
         connectionId,
         list: values,
+        delayMs,
       }),
     });
 
@@ -136,6 +139,12 @@ export default function App() {
             disabled={status === 'running'}
           />
         </div>
+
+        <SpeedControl
+          value={delayMs}
+          onChange={setDelayMs}
+          disabled={status === 'running'}
+        />
 
         <div style={{ display: 'flex', gap: '12px' }}>
           <button

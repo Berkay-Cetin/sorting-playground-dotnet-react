@@ -39,3 +39,4 @@
 /home/local/workspace/tryouts/sortingVisualizer/SortingVisualizer.API/obj/Debug/net8.0/SortingVisualizer.API.pdb
 /home/local/workspace/tryouts/sortingVisualizer/SortingVisualizer.API/obj/Debug/net8.0/SortingVisualizer.API.genruntimeconfig.cache
 /home/local/workspace/tryouts/sortingVisualizer/SortingVisualizer.API/obj/Debug/net8.0/ref/SortingVisualizer.API.dll
+/home/local/workspace/tryouts/sortingVisualizer/SortingVisualizer.API/obj/Debug/net8.0/SortingVisualizer.API.sourcelink.json

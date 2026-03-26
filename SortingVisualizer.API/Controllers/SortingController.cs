@@ -24,7 +24,7 @@ public class SortingController : ControllerBase
     [HttpPost("sort")]
     public async Task<IActionResult> Sort([FromBody] SortRequest request)
     {
-        var recorder = new SignalRStepRecorder(_hubContext, request.ConnectionId);
+        var recorder = new SignalRStepRecorder(_hubContext, request.ConnectionId, request.DelayMs);
         var list = recorder.CreateObservableList(request.List ?? GenerateRandomList());
 
         try
@@ -48,4 +48,4 @@ public class SortingController : ControllerBase
     }
 }
 
-public record SortRequest(string AlgorithmName, string ConnectionId, List<int>? List);
+public record SortRequest(string AlgorithmName, string ConnectionId, List<int>? List, int DelayMs = 120);

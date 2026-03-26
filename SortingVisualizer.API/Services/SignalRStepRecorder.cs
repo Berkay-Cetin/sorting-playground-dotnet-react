@@ -7,11 +7,13 @@ public class SignalRStepRecorder
 {
     private readonly IHubContext<SortingHub> _hubContext;
     private readonly string _connectionId;
+    private readonly int _delayMs;
 
-    public SignalRStepRecorder(IHubContext<SortingHub> hubContext, string connectionId)
+    public SignalRStepRecorder(IHubContext<SortingHub> hubContext, string connectionId, int delayMs = 120)
     {
         _hubContext = hubContext;
         _connectionId = connectionId;
+        _delayMs = delayMs;
     }
 
     public ObservableList CreateObservableList(List<int> initial)
@@ -23,7 +25,7 @@ public class SignalRStepRecorder
                 values = state,
                 highlighted = highlighted
             });
-            await Task.Delay(120);
+            await Task.Delay(_delayMs);
         });
     }
 }
